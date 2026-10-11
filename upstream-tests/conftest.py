@@ -17,6 +17,7 @@ MODULE_PATH = os.path.abspath(
 )
 _CWD_BEFORE_IMPORT = os.getcwd()
 
+
 def _load_module():
     spec = importlib.util.spec_from_file_location(
         "pdf_renamer_under_test", MODULE_PATH
@@ -25,6 +26,7 @@ def _load_module():
     spec.loader.exec_module(module)
     return module
 
+
 @pytest.fixture(scope="session")
 def pr():
     """The loaded 'PDF Renamer.py' module (import side effects isolated)."""
@@ -32,6 +34,7 @@ def pr():
     module = _load_module()
     os.chdir(_CWD_BEFORE_IMPORT)  # 抵消模块顶层的 os.chdir(SCRIPT_DIR)
     return module
+
 
 @pytest.fixture(autouse=True)
 def _restore_cwd():
